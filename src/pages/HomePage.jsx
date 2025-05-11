@@ -123,7 +123,7 @@ const HomePage = () => {
           <div className="flex-1 p-6">
             <div className="mb-8">
               <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
-                Thư viện tài liệu NEU
+                Thư viện tài liệu HOU
               </h1>
               <p className={`mt-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 Chọn một danh mục để xem tài liệu liên quan
