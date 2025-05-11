@@ -1,0 +1,1 @@
+import React from 'react';import { sidebarTitles } from './sidebarTitles';import { titlesData } from './titlesData';export const sidebarData = sidebarTitles;export { titlesData };

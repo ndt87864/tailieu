@@ -1,0 +1,621 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* CSS để ẩn thanh cuộn nhưng vẫn cho phép cuộn */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+    width: 0;
+    background: transparent;
+}
+
+.sticky-sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Enhanced responsive sidebar styles */
+@media (min-width: 770px) {
+    .sidebar-container {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        transition: width 0.3s ease;
+    }
+    
+    .content-container {
+        transition: margin-left 0.3s ease;
+    }
+}
+
+/* Compact sidebar for medium screens */
+@media (min-width: 770px) and (max-width: 1279px) {
+    .sidebar-compact {
+        width: 4rem; /* 64px */
+    }
+    
+    .content-with-compact-sidebar {
+        margin-left: 4rem;
+    }
+}
+
+/* Full width sidebar for small screens */
+@media (max-width: 769px) {
+    .mobile-sidebar {
+        width: 100%;
+        max-width: 18rem; /* 288px */
+        z-index: 50;
+    }
+}
+
+.navbar {
+    background-color: #343a40;
+    color: white;
+    padding: 15px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.category-item {
+    flex: 1 1 30%;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 15px;
+    transition: transform 0.2s;
+}
+
+.category-item:hover {
+    transform: scale(1.05);
+}
+
+.small-category {
+    display: none;
+    margin-top: 10px;
+}
+
+.category-item.active .small-category {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .category-item {
+        flex: 1 1 100%;
+    }
+}
+
+/* Định nghĩa các màu chủ đề */
+:root {
+    /* Màu mặc định */
+    --accent-color: #0c4a2e;  /* Màu nhấn mạnh mặc định (xanh lá) */
+    --accent-color-light: #15803d; /* Màu nhấn mạnh nhạt hơn */
+    --accent-color-dark: #166534; /* Màu nhấn mạnh đậm hơn */
+    --accent-color-hover: #14532d; /* Màu hover */
+    --accent-color-pale: #dcfce7; /* Màu nhạt nhất (bg-green-100) */
+    --accent-color-text: #166534; /* Màu cho text (text-green-800) */
+    --accent-color-rgb: 12, 74, 46; /* Tương ứng với #0c4a2e */
+}
+
+/* Màu nền cho các chủ đề khác nhau - chỉ áp dụng khi ở chế độ sáng */
+:root:not(.dark).theme-blue {
+    --bg-primary: #e6f2ff;
+    --bg-secondary: #cce5ff;
+    --accent-color: #0066cc;
+    --accent-color-light: #0d74e7;
+    --accent-color-dark: #0055aa;
+    --accent-color-hover: #004c99;
+    --accent-color-pale: #dbeafe;
+    --accent-color-text: #1e40af;
+    --border-color: #99ccff;
+    --accent-color-rgb: 0, 102, 204; /* Tương ứng với #0066cc */
+}
+
+:root:not(.dark).theme-red {
+    --bg-primary: #ffe6e6;
+    --bg-secondary: #ffcccc;
+    --accent-color: #cc0000;
+    --accent-color-light: #dc2626;
+    --accent-color-dark: #b91c1c;
+    --accent-color-hover: #991b1b;
+    --accent-color-pale: #fee2e2;
+    --accent-color-text: #991b1b;
+    --border-color: #ff9999;
+    --accent-color-rgb: 204, 0, 0; /* Tương ứng với #cc0000 */
+}
+
+:root:not(.dark).theme-purple {
+    --bg-primary: #f2e6ff;
+    --bg-secondary: #e6ccff;
+    --accent-color: #6600cc;
+    --accent-color-light: #7c3aed;
+    --accent-color-dark: #5b21b6;
+    --accent-color-hover: #4c1d95;
+    --accent-color-pale: #ede9fe;
+    --accent-color-text: #5b21b6;
+    --border-color: #cc99ff;
+    --accent-color-rgb: 102, 0, 204; /* Tương ứng với #6600cc */
+}
+
+:root:not(.dark).theme-yellow {
+    --bg-primary: #fffde6;
+    --bg-secondary: #fff9cc;
+    --accent-color: #ccbb00;
+    --accent-color-light: #d9bb27;
+    --accent-color-dark: #b59b00;
+    --accent-color-hover: #a28900;
+    --accent-color-pale: #fef9c3;
+    --accent-color-text: #854d0e;
+    --border-color: #fff066;
+    --accent-color-rgb: 204, 187, 0; /* Tương ứng với #ccbb00 */
+}
+
+:root:not(.dark).theme-brown {
+    --bg-primary: #f5f0eb;
+    --bg-secondary: #e6d8cc;
+    --accent-color: #996633;
+    --accent-color-light: #a3734f;
+    --accent-color-dark: #7c5627;
+    --accent-color-hover: #664520;
+    --accent-color-pale: #f5f0e6;
+    --accent-color-text: #713f12;
+    --border-color: #d9b38c;
+    --accent-color-rgb: 153, 102, 51; /* Tương ứng với #996633 */
+}
+
+:root:not(.dark).theme-black {
+    --bg-primary: #e6e6e6;
+    --bg-secondary: #d9d9d9;
+    --accent-color: #333333;
+    --accent-color-light: #4b5563;
+    --accent-color-dark: #1f2937;
+    --accent-color-hover: #111827;
+    --accent-color-pale: #f3f4f6;
+    --accent-color-text: #1f2937;
+    --border-color: #b3b3b3;
+    --accent-color-rgb: 51, 51, 51; /* Tương ứng với #333333 */
+}
+
+:root:not(.dark).theme-white {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --accent-color: #999999;
+    --accent-color-light: #a3a3a3;
+    --accent-color-dark: #737373;
+    --accent-color-hover: #666666;
+    --accent-color-pale: #f9fafb;
+    --accent-color-text: #737373;
+    --border-color: #e0e0e0;
+    --accent-color-rgb: 153, 153, 153; /* Tương ứng với #999999 */
+}
+
+/* Định nghĩa các màu chủ đề cho chế độ tối */
+:root.dark {
+    /* Màu mặc định cho chế độ tối */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent-color: #22c55e;  /* Vẫn giữ màu xanh lá làm màu nhấn */
+    --accent-color-light: #15803d;
+    --accent-color-dark: #166534;
+    --accent-color-hover: #14532d;
+    --accent-color-pale: #052e16;
+    --accent-color-text: #4ade80;
+    --border-color: #3d3d3d;
+    --accent-color-rgb: 34, 197, 94; /* Tương ứng với #22c55e */
+}
+
+/* Màu nền cho các chủ đề khác nhau trong chế độ tối */
+:root.dark.theme-blue {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --accent-color: #3b82f6;
+    --accent-color-light: #60a5fa;
+    --accent-color-dark: #2563eb;
+    --accent-color-hover: #1d4ed8;
+    --accent-color-pale: #172554;
+    --accent-color-text: #60a5fa;
+    --border-color: #334155;
+    --accent-color-rgb: 59, 130, 246; /* Tương ứng với #3b82f6 */
+}
+
+:root.dark.theme-red {
+    --bg-primary: #27090a;
+    --bg-secondary: #450a0c;
+    --accent-color: #ef4444;
+    --accent-color-light: #f87171;
+    --accent-color-dark: #dc2626;
+    --accent-color-hover: #b91c1c;
+    --accent-color-pale: #450a0c;
+    --accent-color-text: #f87171;
+    --border-color: #7f1d1d;
+    --accent-color-rgb: 239, 68, 68; /* Tương ứng với #ef4444 */
+}
+
+:root.dark.theme-purple {
+    --bg-primary: #1a0c31;
+    --bg-secondary: #2e1065;
+    --accent-color: #8b5cf6;
+    --accent-color-light: #a78bfa;
+    --accent-color-dark: #7c3aed;
+    --accent-color-hover: #6d28d9;
+    --accent-color-pale: #2e1065;
+    --accent-color-text: #a78bfa;
+    --border-color: #4c1d95;
+    --accent-color-rgb: 139, 92, 246; /* Tương ứng với #8b5cf6 */
+}
+
+:root.dark.theme-yellow {
+    --bg-primary: #292114;
+    --bg-secondary: #422006;
+    --accent-color: #eab308;
+    --accent-color-light: #facc15;
+    --accent-color-dark: #ca8a04;
+    --accent-color-hover: #a16207;
+    --accent-color-pale: #422006;
+    --accent-color-text: #facc15;
+    --border-color: #713f12;
+    --accent-color-rgb: 234, 179, 8; /* Tương ứng với #eab308 */
+}
+
+:root.dark.theme-brown {
+    --bg-primary: #271b10;
+    --bg-secondary: #442a17;
+    --accent-color: #b45309;
+    --accent-color-light: #d97706;
+    --accent-color-dark: #92400e;
+    --accent-color-hover: #78350f;
+    --accent-color-pale: #431407;
+    --accent-color-text: #fdba74;
+    --border-color: #7c2d12;
+    --accent-color-rgb: 180, 83, 9; /* Tương ứng với #b45309 */
+}
+
+:root.dark.theme-black {
+    --bg-primary: #0c0c0c;
+    --bg-secondary: #1a1a1a;
+    --accent-color: #525252;
+    --accent-color-light: #737373;
+    --accent-color-dark: #404040;
+    --accent-color-hover: #262626;
+    --accent-color-pale: #171717;
+    --accent-color-text: #a3a3a3;
+    --border-color: #262626;
+    --accent-color-rgb: 82, 82, 82; /* Tương ứng với #525252 */
+}
+
+:root.dark.theme-white {
+    --bg-primary: #1c1c1c;
+    --bg-secondary: #2c2c2c;
+    --accent-color: #e0e0e0;
+    --accent-color-light: #f5f5f5;
+    --accent-color-dark: #a0a0a0;
+    --accent-color-hover: #8f8f8f;
+    --accent-color-pale: #262626;
+    --accent-color-text: #f5f5f5;
+    --border-color: #3d3d3d;
+    --accent-color-rgb: 224, 224, 224; /* Tương ứng với #e0e0e0 */
+}
+
+/* Áp dụng màu chủ đề cho các phần tử */
+:root:not(.dark)[class*="theme-"] body {
+    background-color: var(--bg-primary);
+}
+
+:root:not(.dark)[class*="theme-"] .category-item,
+:root:not(.dark)[class*="theme-"] .bg-white {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+/* Thay thế tất cả các class màu Tailwind green */
+:root:not(.dark)[class*="theme-"] .text-green-500,
+:root:not(.dark)[class*="theme-"] .text-green-600,
+:root:not(.dark)[class*="theme-"] .text-green-700,
+:root:not(.dark)[class*="theme-"] .text-green-800 {
+    color: var(--accent-color-text) !important;
+}
+
+:root:not(.dark)[class*="theme-"] .hover\:text-green-500:hover,
+:root:not(.dark)[class*="theme-"] .hover\:text-green-600:hover,
+:root:not(.dark)[class*="theme-"] .hover\:text-green-700:hover {
+    color: var(--accent-color) !important;
+}
+
+:root:not(.dark)[class*="theme-"] .bg-green-50,
+:root:not(.dark)[class*="theme-"] .bg-green-100 {
+    background-color: var(--accent-color-pale) !important;
+}
+
+:root:not(.dark)[class*="theme-"] .bg-green-500,
+:root:not(.dark)[class*="theme-"] .bg-green-600 {
+    background-color: var(--accent-color-light) !important;
+}
+
+:root:not(.dark)[class*="theme-"] .bg-green-700,
+:root:not(.dark)[class*="theme-"] .bg-green-800,
+:root:not(.dark)[class*="theme-"] .bg-green-900 {
+    background-color: var(--accent-color) !important;
+}
+
+:root:not(.dark)[class*="theme-"] .hover\:bg-green-600:hover,
+:root:not(.dark)[class*="theme-"] .hover\:bg-green-700:hover {
+    background-color: var(--accent-color-light) !important;
+}
+
+:root:not(.dark)[class*="theme-"] .hover\:bg-green-800:hover,
+:root:not(.dark)[class*="theme-"] .hover\:bg-green-900:hover {
+    background-color: var(--accent-color-dark) !important;
+}
+
+:root:not(.dark)[class*="theme-"] .border-green-500,
+:root:not(.dark)[class*="theme-"] .border-green-600,
+:root:not(.dark)[class*="theme-"] .border-green-700 {
+    border-color: var(--accent-color) !important;
+}
+
+:root:not(.dark)[class*="theme-"] .focus\:border-green-500:focus,
+:root:not(.dark)[class*="theme-"] .focus\:border-green-600:focus {
+    border-color: var(--accent-color) !important;
+}
+
+:root:not(.dark)[class*="theme-"] .focus\:ring-green-500:focus,
+:root:not(.dark)[class*="theme-"] .focus\:ring-green-600:focus {
+    --tw-ring-color: var(--accent-color) !important;
+}
+
+/* Áp dụng màu nền và văn bản chung cho chế độ tối */
+.dark body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.dark .bg-white,
+.dark .category-item {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Thay thế Tailwind classes cho chế độ tối */
+.dark .text-gray-700,
+.dark .text-gray-800,
+.dark .text-gray-900 {
+    color: var(--text-primary) !important;
+}
+
+.dark .text-gray-500,
+.dark .text-gray-600 {
+    color: var(--text-secondary) !important;
+}
+
+/* Thay thế các class màu Tailwind cho chế độ tối */
+.dark .text-green-500,
+.dark .text-green-600,
+.dark .text-green-700,
+.dark .text-green-800 {
+    color: var(--accent-color-text) !important;
+}
+
+.dark .hover\:text-green-500:hover,
+.dark .hover\:text-green-600:hover,
+.dark .hover\:text-green-700:hover {
+    color: var(--accent-color-light) !important;
+}
+
+.dark .bg-green-50,
+.dark .bg-green-100 {
+    background-color: var(--accent-color-pale) !important;
+    color: var (--accent-color-text) !important;
+}
+
+.dark .bg-green-500,
+.dark .bg-green-600 {
+    background-color: var(--accent-color) !important;
+}
+
+.dark .bg-green-700,
+.dark .bg-green-800,
+.dark .bg-green-900 {
+    background-color: var(--accent-color-dark) !important;
+}
+
+.dark .hover\:bg-green-600:hover,
+.dark .hover\:bg-green-700:hover {
+    background-color: var(--accent-color) !important;
+}
+
+.dark .hover\:bg-green-800:hover,
+.dark .hover\:bg-green-900:hover {
+    background-color: var(--accent-color-dark) !important;
+}
+
+.dark .border-green-500,
+.dark .border-green-600,
+.dark .border-green-700 {
+    border-color: var(--accent-color) !important;
+}
+
+.dark .focus\:border-green-500:focus,
+.dark .focus\:border-green-600:focus {
+    border-color: var(--accent-color) !important;
+}
+
+.dark .focus\:ring-green-500:focus,
+.dark .focus\:ring-green-600:focus {
+    --tw-ring-color: var(--accent-color) !important;
+}
+
+/* Màu cho bảng chọn màu chủ đề */
+.theme-color-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 5px;
+    border: 2px solid #ddd;
+    transition: transform 0.2s;
+}
+
+.theme-color-option:hover {
+    transform: scale(1.1);
+}
+
+.theme-color-option.active {
+    border: 2px solid #000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Định nghĩa màu nền cho header và sidebar */
+.theme-header {
+    background-color: var(--accent-color) !important; /* Sử dụng màu của theme */
+}
+
+.dark .theme-header {
+    background-color: #1f2937 !important; /* Sử dụng màu tối nhất quán cho dark mode */
+}
+
+.theme-sidebar {
+    background-color: var(--accent-color) !important;
+}
+
+.dark .theme-sidebar {
+    background-color: #1e293b !important; /* giữ màu tối khi ở dark mode */
+}
+
+.theme-sidebar button:hover,
+.theme-header button:hover {
+    background-color: var(--accent-color-hover) !important;
+}
+
+.dark .theme-sidebar button:hover,
+.dark .theme-header button:hover {
+    background-color: #374151 !important; /* giữ màu tối khi ở dark mode */
+}
+
+.theme-color-blue { background-color: #0066cc; }
+.theme-color-red { background-color: #cc0000; }
+.theme-color-purple { background-color: #6600cc; }
+.theme-color-yellow { background-color: #ccbb00; }
+.theme-color-brown { background-color: #996633; }
+.theme-color-black { background-color: #333333; }
+.theme-color-white { background-color: #ffffff; }
+.theme-color-default { 
+    /* Sử dụng màu xanh lá đậm cho theme mặc định */
+    background-color: #0c4a2e;
+}
+
+/* Nút với màu chủ đề */
+.theme-button {
+    background-color: var(--accent-color-light) !important;
+}
+
+.theme-button:hover {
+    background-color: var(--accent-color-dark) !important;
+}
+
+.dark .theme-button {
+    background-color: #374151 !important; /* Giữ màu tối khi ở dark mode */
+}
+
+.dark .theme-button:hover {
+    background-color: #4b5563 !important; /* Giữ màu tối khi ở dark mode */
+}
+
+/* Màu nền cho các phần tử được chọn trong sidebar */
+.theme-category-selected {
+    background-color: var(--accent-color-dark) !important; /* Sử dụng màu đậm hơn */
+    border-left: 3px solid var(--accent-color-light); /* Thêm viền trái để nổi bật */
+}
+
+.theme-document-selected {
+    background-color: rgba(var(--accent-color-rgb), 0.4) !important; /* Tăng độ đậm lên 40% */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Thêm đổ bóng nhẹ */
+    border-left: 2px solid var(--accent-color-light); /* Thêm viền trái để nổi bật */
+}
+
+.theme-category-container {
+    background-color: rgba(0, 0, 0, 0.3) !important; /* Đổi thành màu đen với độ trong suốt 30% */
+    border-radius: 0.375rem; /* Bo góc nhẹ */
+    box-shadow: 
+        inset 0 1px 2px rgba(0, 0, 0, 0.1), /* Đổ bóng bên trong */
+        0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng bên ngoài */
+    padding: 0.25rem 0.125rem; /* Padding nhẹ */
+    margin-top: 0.25rem; /* Margin trên */
+    position: relative; /* Để áp dụng pseudo-element */
+}
+
+/* Thêm hiệu ứng đổ bóng nâng cao cho cụm chứa document khi ở chế độ sáng */
+:root:not(.dark) .theme-category-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    border-radius: 0.375rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Cũng đổi thành màu đen */
+    opacity: 0.8;
+}
+
+.dark .theme-category-selected {
+    background-color: rgba(var(--accent-color-rgb), 0.3) !important;
+    border-left: 3px solid var(--accent-color) !important;
+}
+
+.dark .theme-document-selected {
+    background-color: rgba(var(--accent-color-rgb), 0.25) !important;
+    border-left: 2px solid var(--accent-color) !important;
+}
+
+.dark .theme-category-container {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 
+        inset 0 1px 2px rgba(0, 0, 0, 0.2),
+        0 1px 2px rgba(255, 255, 255, 0.05);
+}
+
+/* Điều chỉnh màu viền cho các nút chọn màu sắc trong chế độ tối */
+.dark .theme-color-option {
+    border: 2px solid #4a4a4a;
+}
+
+.dark .theme-color-option.active {
+    border: 2px solid #f0f0f0;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.theme-button-hover:hover {
+    background-color: var(--accent-color-hover) !important;
+}
